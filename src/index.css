@@ -1,0 +1,55 @@
+@import "tailwindcss";
+@layer base {
+  html {
+    font-family: 'Chillax', system-ui, sans-serif;
+  }
+
+  @font-face {
+    font-family: 'Chillax';
+    src: url('./assets/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Variable.woff2') format('woff2'),
+         url('./assets/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Variable.woff') format('woff');
+    font-weight: 200 700;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Chillax';
+    src: url('./assets/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Regular.woff2') format('woff2'),
+         url('./assets/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Chillax';
+    src: url('./assets/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Medium.woff2') format('woff2'),
+         url('./assets/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Chillax';
+    src: url('./assets/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Semibold.woff2') format('woff2'),
+         url('./assets/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Semibold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Chillax';
+    src: url('./assets/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Bold.woff2') format('woff2'),
+         url('./assets/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+  }
+}
+
+@theme {
+    --color-primary: #09d3cd;
+    --color-conference: #72c3ff;
+    --color-hackathon: #d8a8ff;
+    --color-co-working: #8cf3a9;
+    --color-workshop: #ff7e9c;
+    --color-meet-ups: #ffb08f;
+    --color-disabled: #7c7c7c;
+    --color-error: #d90000;
+    --color-primary-light: #09d3cd;
+}
