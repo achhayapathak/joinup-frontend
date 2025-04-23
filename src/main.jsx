@@ -9,11 +9,11 @@ import "./index.css";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    {/* <QueryClientProvider client={queryClient}> */}
+    <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <App />
-        {/* <ReactQueryDevtools position="bottom-right" initialIsOpen={false} /> */}
+        <ReactQueryDevtools position="bottom-right" initialIsOpen={false} />
       </BrowserRouter>
-    {/* </QueryClientProvider> */}
+    </QueryClientProvider>
   </StrictMode>
 );
