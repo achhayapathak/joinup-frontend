@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Background from "../components/background";
 import Heading from "../components/Heading";
 import InputField from "../components/InputField";
@@ -6,7 +6,7 @@ import Button from "../components/Button";
 import SocialButton from "../components/SocialButton";
 import ForgotPasswordButton from "../components/ForgotPasswordButton";
 
-export default function Login() {
+export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
@@ -16,7 +16,6 @@ export default function Login() {
     const isPasswordValid = password.length >= 6;
     setIsFormValid(isEmailValid && isPasswordValid);
   }, [email, password]);
-
   return (
     <Background>
       <div className="min-h-screen w-full flex flex-col">
@@ -37,37 +36,36 @@ export default function Login() {
               <div className="flex flex-col w-full">
                 {/* Form Section */}
                 <div className="flex flex-col gap-4 w-full mb-2">
-                  <InputField
-                    label="My email is"
-                    placeholder="name@email.com"
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <InputField
-                    label="& my password is"
-                    placeholder="************"
-                    type="password"
-                    showPassword
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-
-                {/* Login Section */}
-                <div className="flex flex-col w-full mb-12">
-                  <div className="flex justify-end mb-12">
-                    <ForgotPasswordButton
-                      text={"I forgot my password"}
-                      to="/forgot/password"
+                  <div className="flex flex-col gap-4 w-full mb-2">
+                    <InputField
+                      label="My email is"
+                      placeholder="name@email.com"
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <InputField
+                      label="& my password is"
+                      placeholder="************"
+                      type="password"
+                      showPassword
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                   </div>
-                  <div className="flex justify-center items-center gap-2">
+                </div>
+
+                {/* Register Section */}
+                <div className="flex flex-col w-full mb-12">
+                  {/* <div className="flex justify-end mb-12">
+                    <ForgotPasswordButton text={"I forgot my password"} />
+                  </div> */}
+                  <div className="flex justify-center items-center gap-2 mt-12">
                     <span className="font-chillax text-xl font-normal">
                       I want to
                     </span>
                     <Button disabled={!isFormValid} onClick={() => {}}>
-                      Login
+                      Sign up
                     </Button>
                   </div>
                 </div>
@@ -90,8 +88,8 @@ export default function Login() {
           {/* Create Account Section - Fixed at bottom */}
           <div className="flex justify-center py-12">
             <span className="font-chillax text-base font-normal">
-              I would like to{" "}
-              <ForgotPasswordButton text={"Create an account"} to="/register" />
+              I already have an account, Let me{" "}
+              <ForgotPasswordButton text={"Login"} to="/login" />
             </span>
           </div>
         </div>
