@@ -5,11 +5,26 @@ import InputField from "../components/InputField";
 import Button from "../components/Button";
 import SocialButton from "../components/SocialButton";
 import ForgotPasswordButton from "../components/ForgotPasswordButton";
+import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { register } from "../lib/api";
 
 export default function Register() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
+
+  const {
+    mutate: createAccount,
+    isPending,
+    isError,
+  } = useMutation({
+    mutationFn: register,
+    onSuccess: () => {
+      navigate("/verification");
+    },
+  });
 
   useEffect(() => {
     const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -33,6 +48,12 @@ export default function Register() {
                 <Heading text="JoinUp" />
               </div>
 
+              {isError && (
+                <p class="text-xs font-chillax font-medium text-error mb-20">
+                  Hmm, the email is already registered, try loging in!
+                </p>
+              )}
+
               <div className="flex flex-col w-full">
                 {/* Form Section */}
                 <div className="flex flex-col gap-4 w-full mb-2">
@@ -51,6 +72,7 @@ export default function Register() {
                       showPassword
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
+                      onKeyDown={(e) => e.key === "Enter" && createAccount({ email, password })} // Trigger login on Enter key
                     />
                   </div>
                 </div>
@@ -64,7 +86,11 @@ export default function Register() {
                     <span className="font-chillax text-xl font-normal">
                       I want to
                     </span>
-                    <Button disabled={!isFormValid} onClick={() => {}}>
+                    <Button
+                      disabled={!isFormValid}
+                      onClick={() => createAccount({ email, password })}
+                      isLoading={isPending}
+                    >
                       Sign up
                     </Button>
                   </div>

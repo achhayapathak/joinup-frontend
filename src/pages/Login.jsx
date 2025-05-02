@@ -5,11 +5,26 @@ import InputField from "../components/InputField";
 import Button from "../components/Button";
 import SocialButton from "../components/SocialButton";
 import ForgotPasswordButton from "../components/ForgotPasswordButton";
+import { useMutation } from "@tanstack/react-query";
+import { login } from "../lib/api";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
+
+  const {
+    mutate: signIn,
+    isPending,
+    isError,
+  } = useMutation({
+    mutationFn: login,
+    onSuccess: () => {
+      navigate("/", { replace: true });
+    },
+  });
 
   useEffect(() => {
     const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -34,6 +49,12 @@ export default function Login() {
                 <Heading text="JoinUp" />
               </div>
 
+              {isError && (
+                <p class="text-xs font-chillax font-medium text-error mb-20">
+                  Hmm, those details don’t match
+                </p>
+              )}
+
               <div className="flex flex-col w-full">
                 {/* Form Section */}
                 <div className="flex flex-col gap-4 w-full mb-2">
@@ -51,6 +72,12 @@ export default function Login() {
                     showPassword
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        signIn({ email, password });
+                      }
+                    }}
                   />
                 </div>
 
@@ -59,14 +86,19 @@ export default function Login() {
                   <div className="flex justify-end mb-12">
                     <ForgotPasswordButton
                       text={"I forgot my password"}
-                      to="/forgot/password"
+                      to="/password/forgot"
                     />
                   </div>
+
                   <div className="flex justify-center items-center gap-2">
                     <span className="font-chillax text-xl font-normal">
                       I want to
                     </span>
-                    <Button disabled={!isFormValid} onClick={() => {}}>
+                    <Button
+                      disabled={!isFormValid}
+                      onClick={() => signIn({ email, password })}
+                      isLoading={isPending}
+                    >
                       Login
                     </Button>
                   </div>

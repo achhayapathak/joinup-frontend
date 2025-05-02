@@ -1,6 +1,6 @@
 const Heading = ({text}) => {
     return (
-        <p className="text-4xl font-chillax font-semibold text-primary primary">
+        <p className="text-[40px] font-chillax font-semibold text-primary primary">
           {text}
         </p>
     )

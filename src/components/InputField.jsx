@@ -4,7 +4,7 @@ const InputField = ({
   label,
   placeholder,
   type = "text",
-  showPassword,
+  showPassword = false,
   value,
   onChange,
 }) => {
