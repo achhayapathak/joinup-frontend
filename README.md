@@ -1,12 +1,89 @@
-# React + Vite
+# joinup-frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Modern React frontend for JoinUp, built with Vite, Chakra UI, Tailwind, and React Query.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React 19, Vite, Chakra UI, TailwindCSS
+- React Query for data fetching/caching
+- Axios with auto token refresh
+- Routing via React Router v7
+- Theming with next-themes
+- Dev, build, preview, and lint scripts
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 1. Install dependencies
+
+```sh
+npm install
+```
+
+### 2. Set backend URL
+
+Create a `.env` file in the project root:
+
+```env
+VITE_API_URL=https://your-backend-url.com/api
+```
+
+- This is used in `src/config/apiClient.js` for all API requests.
+- The app expects the backend to support CORS and `/auth/refresh` for token refresh.
+
+### 3. Run the app
+
+```sh
+npm run dev
+```
+
+- App runs on [http://localhost:5173](http://localhost:5173) by default.
+
+### 4. Build for production
+
+```sh
+npm run build
+```
+
+### 5. Preview production build
+
+```sh
+npm run preview
+```
+
+### 6. Lint
+
+```sh
+npm run lint
+```
+
+## Environment Variables
+
+- `VITE_API_URL` — **required**. Base URL for backend API.
+
+## Backend Connection
+
+- All API calls use `VITE_API_URL` as the base.
+- Auth tokens are refreshed automatically on 401 errors (see `src/config/apiClient.js`).
+- If refresh fails, user is redirected to `/login`.
+
+## Tech Stack
+
+- React 19
+- Vite
+- Chakra UI
+- TailwindCSS
+- React Query
+- Axios
+- React Router v7
+
+## Folder Structure
+
+- `src/components/` — UI components
+- `src/pages/` — Page components (if using file-based routing)
+- `src/config/` — API client and query client setup
+- `src/hooks/` — Custom hooks
+- `src/lib/` — Utilities/libs
+
+---
+
+

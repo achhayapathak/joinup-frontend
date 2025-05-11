@@ -7,13 +7,15 @@ import SocialButton from "../components/SocialButton";
 import ForgotPasswordButton from "../components/ForgotPasswordButton";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "../lib/api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Login() {
+  const location = useLocation();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
+  const redirectUrl = location.state?.redirectUrl || "/";
 
   const {
     mutate: signIn,
@@ -22,7 +24,7 @@ export default function Login() {
   } = useMutation({
     mutationFn: login,
     onSuccess: () => {
-      navigate("/", { replace: true });
+      navigate(redirectUrl, { replace: true });
     },
   });
 
