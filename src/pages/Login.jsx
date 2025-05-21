@@ -6,9 +6,9 @@ import Button from "../components/Button";
 import SocialButton from "../components/SocialButton";
 import ForgotPasswordButton from "../components/ForgotPasswordButton";
 import { useMutation } from "@tanstack/react-query";
-import { login } from "../lib/api";
+import { googleLogin, login } from "../lib/api";
 import { useNavigate, useLocation } from "react-router-dom";
-
+import { useGoogleLogin } from "@react-oauth/google";
 export default function Login() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -33,6 +33,24 @@ export default function Login() {
     const isPasswordValid = password.length >= 6;
     setIsFormValid(isEmailValid && isPasswordValid);
   }, [email, password]);
+
+  const responseGoogle = async (authResult) => {
+    try {
+      if (authResult.code) {
+        const response = await googleLogin(authResult.code);
+        console.log(response);
+        navigate(redirectUrl, { replace: true });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleGoogleLogin = useGoogleLogin({
+    onSuccess: responseGoogle,
+    onError: responseGoogle,
+    flow: "auth-code",
+  });
 
   return (
     <Background>
@@ -110,16 +128,14 @@ export default function Login() {
           </div>
 
           {/* Social Login Section */}
-          {/* <div className="flex flex-col items-center mb-auto">
+           <div className="flex flex-col items-center mb-auto">
                 <span className="font-chillax text-base font-normal text-center mb-5">
                   I want to login with
                 </span>
                 <div className="flex items-center gap-2.5">
-                  <SocialButton icon="google" />
-                  <span className="font-chillax text-xl font-normal">or</span>
-                  <SocialButton icon="phone" />
+                  <SocialButton icon="google" onClick={handleGoogleLogin} />
                 </div>
-              </div> */}
+              </div>
 
           {/* Create Account Section - Fixed at bottom */}
           <div className="flex justify-center py-12">

@@ -9,6 +9,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import AppContainer from "./components/AppContainer";
 import { setNavigate } from "./lib/navigation";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 export const Home = () => {
   return (
     <Background>
@@ -23,17 +24,19 @@ function App() {
   const navigate = useNavigate();
   setNavigate(navigate);
   return (
-    <Routes>
-      <Route path="/" element={<AppContainer />}>
-        <Route index element={<Home />} />
+    <GoogleOAuthProvider clientId="902110353612-vd5vq9jnkafsu65rgrdd7pvv9957krhj.apps.googleusercontent.com">
+      <Routes>
+        <Route path="/" element={<AppContainer />}>
+          <Route index element={<Home />} />
       </Route>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/verification" element={<Verification />} />
-      <Route path="/verify/email/:code" element={<VerifyEmail />} />
-      <Route path="/password/forgot" element={<ForgotPassword />} />
-      <Route path="/password/reset" element={<ResetPassword />} />
-    </Routes>
+        <Route path="/verification" element={<Verification />} />
+        <Route path="/verify/email/:code" element={<VerifyEmail />} />
+        <Route path="/password/forgot" element={<ForgotPassword />} />
+        <Route path="/password/reset" element={<ResetPassword />} />
+      </Routes>
+    </GoogleOAuthProvider>
   );
 }
 
